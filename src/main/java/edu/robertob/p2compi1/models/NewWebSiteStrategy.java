@@ -14,6 +14,7 @@ public class NewWebSiteStrategy implements ActionStrategy {
         System.out.println("Directorio del sitio: " + sitePath);
         try {
             if (!Files.exists(sitePath)) {
+                action.validationMessages.messages.add("Directorio del sitio creado / Sitio creado");
                 Files.createDirectory(sitePath);
             } else {
                 System.out.println("El directorio/sitio ya existe");

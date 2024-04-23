@@ -10,19 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08fb042a-e67a-4a83-b504-0ad2dd00932b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/HelloServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2compi-frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/p2compi-frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/models/DeleteWebSiteStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/models/DeleteWebSiteStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/models/NewPageStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/models/NewPageStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/models/NewWebSiteStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/robertob/p2compi1/models/NewWebSiteStrategy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +31,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "rrobertobt"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:rrobertobt/p2compi1.git",
+    "accountId": "1f2c3075-e613-4a18-bd7c-5d09946d03b4"
+  }
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -144,7 +148,7 @@
       <option name="presentableId" value="Default" />
       <updated>1713828807061</updated>
       <workItem from="1713828808391" duration="103000" />
-      <workItem from="1713828916191" duration="3994000" />
+      <workItem from="1713828916191" duration="6036000" />
     </task>
     <servers />
   </component>

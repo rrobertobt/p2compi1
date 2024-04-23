@@ -1,7 +1,14 @@
 <template>
   <div class="main">
+    <h3>
+      Las paginas creadas se pueden encontrar bajo la ruta, utilizando los identificadores de las paginas y subpaginas:
+      <br>
+      <a href="">http://localhost/~robertob/{nombre de la pagina}/{paginas y subpaginas}</a>
+    </h3>
     <h1>
       Ingresa texto de entrada:
+      <br>
+      <h6>Una acción a la vez, multiples acciones no son soportadas</h6>
     </h1>
     <textarea
       v-model="inputText"
@@ -24,18 +31,21 @@
       <div v-else-if="restultMessage.messages" style="color: green;">
         Resultado:
         <section style="padding: 1rem; border: 1px solid #ccc; border-radius: 0.25rem;" v-if="restultMessage.messages.length">
-          <pre v-for="message in restultMessage.messages">
+          <code v-for="message in restultMessage.messages">
             Mensaje: {{ message }}
-          </pre>
+          </code>
         </section>
         <section style="padding: 1rem; border: 1px solid #ccc; border-radius: 0.25rem;">
-          <pre v-for="error in restultMessage.errors">
+          <code v-for="error in restultMessage.errors">
             Error: {{ error }}
-          </pre>
+          </code>
         </section>
-        <pre style="color: cornflowerblue;">
-        Entrada valida: {{ restultMessage.isValid }}
-        </pre>
+        <section style="color: cornflowerblue; padding: 1rem; border: 1px solid #ccc; border-radius: 0.25rem;">
+          <code>
+            Entrada valida: {{ restultMessage.isValid ? 'Si' : 'No'}}
+
+          </code>
+        </section>
 
 
       </div>
@@ -66,8 +76,9 @@ const process = async () => {
 <style scoped>
 .main {
   min-height: 100vh;
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  padding-inline: 20rem;
 
   textarea {
     width: 700px;

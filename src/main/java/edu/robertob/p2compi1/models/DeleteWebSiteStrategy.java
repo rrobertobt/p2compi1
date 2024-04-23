@@ -15,6 +15,7 @@ public class DeleteWebSiteStrategy implements  ActionStrategy {
         try {
             if (Files.exists(sitePath)) {
                 Files.delete(sitePath);
+                action.validationMessages.messages.add("Directorio eliminado con éxito / sitio eliminado con éxito");
             } else {
                 System.out.println("El directorio/sitio no existe");
                 action.validationMessages.errors.add("El directorio/sitio no existe");

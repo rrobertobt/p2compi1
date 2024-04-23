@@ -55,6 +55,7 @@ public class NewPageStrategy implements ActionStrategy {
             // Create the page html
             if (!Files.exists(pagePath)) {
                 Files.writeString(pagePath, documentContent);
+                action.validationMessages.messages.add("Página creada con éxito");
             } else {
                 System.out.println("La página ya existe");
                 action.validationMessages.errors.add("La página ya existe");
@@ -62,6 +63,7 @@ public class NewPageStrategy implements ActionStrategy {
             // Create the page folder to hold children pages
             if (action.getParameterValue("PADRE") == null && pageParentPath != null && !Files.exists(pageParentPath)) {
                 Files.createDirectory(pageParentPath);
+                action.validationMessages.messages.add("Directorio de página para guardar páginas hijas creado con éxito");
             }
         } catch (Exception e) {
             System.out.println("Error al crear la página: " + e);
