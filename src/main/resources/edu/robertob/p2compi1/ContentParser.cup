@@ -1,0 +1,110 @@
+package org.example;
+import java_cup.runtime.*;
+
+parser code {:
+    Action currentAction;
+:}
+
+// <, >, </, />
+terminal TAG_START, TAG_END, TAG_CLOSE, TAG_SELF_CLOSE;
+// accion, acciones, parametro, parametros (<accion> <parametro> <parametro> </accion>)
+terminal ACTION_TAG_NAME, ACTIONS_TAG_NAME, PARAM_TAG_NAME, PARAMS_TAG_NAME;
+// etiquieta, etiquetas (<etiqueta> <etiquetas> </etiqueta>)
+terminal TAG_NAME, TAGS_NAME;
+
+// nombre, valor (nombre="...", valor="...")
+terminal NAME_ATTR, VALUE_ATTR;
+// =
+terminal EQUALS;
+// Identificador, valor de atributo, valor de parametro
+// ($id, NOMBRE_ACCION, [valor del parametro])
+terminal String ID, ATTR_VALUE, PARAM_VALUE;
+//terminal ID, ATTR_VALUE, PARAM_VALUE;
+
+// Atributos
+// <atributo nombre="NOMBRE_ATRIBUTO">[VALOR_DEL_ATRIBUTO]</atributo>
+// <atributos> <atributo> <atributo> </atributos>
+terminal ATTR_TAG_NAME, ATTRS_TAG_NAME;
+
+nonterminal instructions, action_open, action_close, main_action, param_open, param_close, param, params_open, params_close, params, params_list, actions_open, actions_close, actions_list, actions;
+nonterminal metatag, metatags_list, metatags_open, metatags_close, metatags, action_content;
+nonterminal attribute_open, attribute_close, attribute, attributes_list, attributes_open, attributes_close, attributes;
+
+/* Reglas de producción */
+start with instructions;
+
+instructions ::= actions {:
+//    RESULT = action;
+:}
+    | main_action {:
+        RESULT = currentAction;
+    :};
+
+// <accion nombre="NOMBRE_DE_LA_ACCION">
+action_open ::= TAG_START ACTION_TAG_NAME NAME_ATTR EQUALS ATTR_VALUE:actionName TAG_END {:
+    currentAction = new Action(actionName);
+//    RESULT = action_name;
+ :};
+action_close ::= TAG_CLOSE ACTION_TAG_NAME TAG_END;
+main_action ::= action_open action_content action_close;
+
+// <acciones> <accion> <accion> </acciones>
+actions_open ::= TAG_START ACTIONS_TAG_NAME TAG_END;
+actions_close ::= TAG_CLOSE ACTIONS_TAG_NAME TAG_END;
+actions_list ::= main_action | actions_list main_action;
+actions ::= actions_open actions_list actions_close;
+
+// <atributo nombre="NOMBRE_PARAMETRO"> [VALOR DEL PARAMETRO] </atributo>
+attribute_open ::= TAG_START ATTR_TAG_NAME NAME_ATTR EQUALS ATTR_VALUE:attrName TAG_END {: RESULT = attrName; :};
+attribute_close ::= TAG_CLOSE ATTR_TAG_NAME TAG_END;
+attribute ::= attribute_open:attrName PARAM_VALUE:attrValue attribute_close {:
+    if (!currentAction.getName().equals("AGREGAR_COMPONENTE")) {
+        currentAction.addError("El uso de atributos no está permitido en la acción " + currentAction.getName() + " se encontró el atributo " + attrName);
+    }
+    Attribute attr = new Attribute((String)attrName, (String)attrValue);
+    currentAction.addAttribute(attr);
+:};
+
+attributes_list ::= attribute | attributes_list attribute;
+
+// <atributos> <atributo> <atributo> </atributos>
+attributes_open ::= TAG_START ATTRS_TAG_NAME TAG_END;
+attributes_close ::= TAG_CLOSE ATTRS_TAG_NAME TAG_END;
+attributes ::= attributes_open attributes_list attributes_close;
+
+// <parametro nombre="NOMBRE_PARAMETRO"> [VALOR DEL PARAMETRO] </parametro>
+param_open ::= TAG_START PARAM_TAG_NAME NAME_ATTR EQUALS ATTR_VALUE:paramName TAG_END {: RESULT = paramName; :};
+param_close ::= TAG_CLOSE PARAM_TAG_NAME TAG_END;
+param ::=
+    param_open:paramName PARAM_VALUE:paramValue param_close {:
+//        System.out.println("paramName is: "+paramName + "with value: "+paramValue);
+        Parameter param = new Parameter((String)paramName, (String)paramValue);
+        currentAction.addParameter(param);
+    :}
+    | param_open:paramName ID:paramValue param_close {:
+//        System.out.println("paramName is: "+paramName + "with value as ID: "+paramValue);
+        Parameter param = new Parameter((String)paramName, (String)paramValue);
+        currentAction.addParameter(param);
+    :};
+
+params_list ::= param | params_list param;
+
+// <parametros> <parametro> <parametro> </parametros>
+params_open ::= TAG_START PARAMS_TAG_NAME TAG_END;
+params_close ::= TAG_CLOSE PARAMS_TAG_NAME TAG_END;
+params ::= params_open params_list params_close;
+
+// <etiqueta valor="etiqueta2"/>
+metatag ::= TAG_START TAG_NAME VALUE_ATTR EQUALS ATTR_VALUE TAG_SELF_CLOSE;
+metatags_list ::= metatag | metatags_list metatag;
+
+metatags_open ::= TAG_START TAGS_NAME TAG_END;
+metatags_close ::= TAG_CLOSE TAGS_NAME TAG_END;
+metatags ::= metatags_open metatags_list metatags_close;
+
+action_content ::=
+    action_content params
+    | action_content metatags
+    | action_content attributes
+    | /* empty */
+    ;
